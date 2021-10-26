@@ -17,8 +17,27 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+//auth route for both 
+Route::group(['middleware' => ['auth']], function() { 
+    Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index')->name('dashboard');
+});
 
+
+// Route::group(['middleware' => ['auth', 'role:bendahara']], function() { 
+//     Route::get('/dashboard/myprofile', 'App\Http\Controllers\DashboardController@myprofile')->name('dashboard.myprofile');
+// });
+
+// Route::group(['middleware' => ['auth', 'role:donatur']], function() { 
+//     Route::get('/dashboard/postcreate', 'App\Http\Controllers\DashboardController@postcreate')->name('dashboard.postcreate');
+// });
+
+
+// Route::group(['middleware' => ['auth', 'role:koordinator']], function() { 
+//     Route::get('/dashboard/postcreate', 'App\Http\Controllers\DashboardController@postcreate')->name('dashboard.postcreate');
+// });
+
+
+// Route::group(['middleware' => ['auth', 'role:ketua']], function() { 
+//     Route::get('/dashboard/postcreate', 'App\Http\Controllers\DashboardController@postcreate')->name('dashboard.postcreate');
+// });
 require __DIR__.'/auth.php';
